@@ -1,6 +1,8 @@
 package com.kodilla.libraryfront;
 
-import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.Route;
 
-public class CreateNewAccount extends Component {
+@Route
+public class CreateNewAccount extends VerticalLayout {
 }
