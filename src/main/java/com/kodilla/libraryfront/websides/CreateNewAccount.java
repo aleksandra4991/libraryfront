@@ -1,6 +1,8 @@
 package com.kodilla.libraryfront.websides;
 
+import com.kodilla.libraryfront.client.LibraryBackendClient;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
@@ -8,6 +10,7 @@ import com.vaadin.flow.router.Route;
 @Route
 public class CreateNewAccount extends VerticalLayout {
 
+    private final LibraryBackendClient libraryBackendClient;
     TextField name = new TextField("Name");
     TextField phoneNumber = new TextField("Phone Number");
     TextField emailAddress = new TextField("Email Address");
@@ -19,15 +22,17 @@ public class CreateNewAccount extends VerticalLayout {
     private void save() {
         Reader reader = binder.getBean();
         readerService.createReader(reader);
-    }
-    public CreateNewAccount(){
+    }*/
+    public CreateNewAccount(LibraryBackendClient libraryBackendClient){
+        this.libraryBackendClient=libraryBackendClient;
+
         HorizontalLayout buttons = new HorizontalLayout(createNewAccount);
         add(name,phoneNumber,emailAddress,password,createNewAccount);
-        binder.bindInstanceFields(this);
-        createNewAccount.addClickListener(event -> save());
+        //binder.bindInstanceFields(this);
+        //createNewAccount.addClickListener(event -> save());
         goBackToLogIn.addClickListener(event -> getUI().get().navigate(String.valueOf(LogIn.class)));
     }
-*/
+
 }
 
 
