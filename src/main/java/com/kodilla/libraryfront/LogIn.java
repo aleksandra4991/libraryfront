@@ -8,17 +8,20 @@ import com.vaadin.flow.router.Route;
 @Route
 public class LogIn extends VerticalLayout {
 
-    public LogIn(){
+    public LogIn() {
 
         TextField name = new TextField("Name");
         TextField password = new TextField("Password");
         Button logIn = new Button("Log In");
 
-        logIn.addClickListener(event -> {
-            getUI().get().navigate(UserAccount.class);
+        /*logIn.addClickListener(event -> {
+            getUI().get().navigate(String.valueOf(ReaderAccount.class));
         });
 
         add(name,password,logIn);
 
+    }
+
+         */
     }
 }
