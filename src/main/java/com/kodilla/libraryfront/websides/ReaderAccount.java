@@ -1,5 +1,6 @@
 package com.kodilla.libraryfront.websides;
 
+import com.kodilla.libraryfront.client.LibraryBackendClient;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -8,10 +9,17 @@ import com.vaadin.flow.router.Route;
 @Route
 public class ReaderAccount extends VerticalLayout {
 
+    private final LibraryBackendClient libraryBackendClient;
+
     Button logOut = new Button("Log out");
     Button editingData = new Button("Edit your profile");
     Button checkYourActiveReservations = new Button("My Reservations");
     Button addBookToCart = new Button("Add to cart");
+
+    public ReaderAccount(LibraryBackendClient libraryBackendClient) {
+        this.libraryBackendClient = libraryBackendClient;
+    }
+
     /*private BookService bookService = BookService.getInstance();
     private Grid<Book> grid = new Grid<>(Book.class);
     private TextField filter = new TextField();

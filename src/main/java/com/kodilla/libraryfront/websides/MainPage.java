@@ -1,7 +1,6 @@
 package com.kodilla.libraryfront.websides;
 
-import com.kodilla.libraryfront.websides.CreateNewAccount;
-import com.kodilla.libraryfront.websides.LogIn;
+import com.kodilla.libraryfront.client.LibraryBackendClient;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -10,7 +9,11 @@ import com.vaadin.flow.router.Route;
 @Route
 public class MainPage extends VerticalLayout {
 
-    public MainPage(){
+    private final LibraryBackendClient libraryBackendClient;
+
+    public MainPage(LibraryBackendClient libraryBackendClient){
+        this.libraryBackendClient=libraryBackendClient;
+
         setSizeFull();
 
         Label myLibrary = new Label("Aleksandra Library");
@@ -36,6 +39,8 @@ public class MainPage extends VerticalLayout {
         add(myLibrary,logIn,createAccount);
 
     }
+
+
 }
 
 
