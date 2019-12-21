@@ -1,4 +1,4 @@
-package com.kodilla.libraryfront;
+package com.kodilla.libraryfront.websides;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
