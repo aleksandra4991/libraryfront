@@ -16,12 +16,12 @@ public class MainPage extends VerticalLayout {
         myLibrary.setWidth("400");
 
         Button createAccount = new Button("Create Account");
-            createAccount.addClickListener(event -> {
-               getUI().get().navigate(CreateNewAccount.class);
-            });
+        createAccount.addClickListener(event -> {
+            getUI().get().navigate(CreateNewAccount.class);
+        });
 
-            createAccount.setHeight("200");
-            createAccount.setWidth("200");
+        createAccount.setHeight("200");
+        createAccount.setWidth("200");
 
         Button logIn = new Button("Log In");
         logIn.addClickListener(event -> {
@@ -34,10 +34,12 @@ public class MainPage extends VerticalLayout {
         add(myLibrary,logIn,createAccount);
 
     }
-
-
-
 }
+
+
+
+
+
 
 
 
