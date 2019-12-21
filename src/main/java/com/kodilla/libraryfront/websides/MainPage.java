@@ -1,5 +1,7 @@
-package com.kodilla.libraryfront;
+package com.kodilla.libraryfront.websides;
 
+import com.kodilla.libraryfront.websides.CreateNewAccount;
+import com.kodilla.libraryfront.websides.LogIn;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
