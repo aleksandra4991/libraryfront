@@ -11,7 +11,7 @@ public class ReservationDto {
     private Long reservationId;
     private String reader;
     private String reservedBooks;
-
+    private Long cartId;
 
     public ReservationDto() {
     }
@@ -42,5 +42,13 @@ public class ReservationDto {
 
     public void setActive(AtomicBoolean active) {
         this.active = active;
+    }
+
+    public Long getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(Long cartId) {
+        this.cartId = cartId;
     }
 }

@@ -1,8 +1,10 @@
 plugins {
-    id 'org.springframework.boot' version '2.2.0.M4'
+    id 'org.springframework.boot' version '2.2.2.RELEASE'
     id 'java'
 }
 
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 group = 'com.kodilla'
@@ -19,6 +21,7 @@ ext {
 }
 
 dependencies {
+    compile 'com.google.code.gson:gson:2.8.6'
     implementation 'com.vaadin:vaadin-spring-boot-starter'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
@@ -35,3 +38,4 @@ dependencyManagement {
 test {
     useJUnitPlatform()
 }
+
