@@ -22,7 +22,7 @@ public class ReaderDto {
     @JsonIgnore
     private List<BookDto> bookDtoList = new ArrayList<>();
 
-    public ReaderDto() {
+    public ReaderDto(String value, String phoneNumberValue, String emailAddressValue, String passwordValue) {
     }
 
     public ReaderDto(String readerName, boolean status) {
