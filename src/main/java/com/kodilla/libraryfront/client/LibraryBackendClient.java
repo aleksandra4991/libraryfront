@@ -14,6 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -27,7 +28,6 @@ public class LibraryBackendClient {
     private LibraryBackendConfigration libraryBackendConfigration;
 
     private HttpHeaders httpHeaders;
-
 
     public List<BookDto> getAllBooks(){
         BookDto[] boardResponse = restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint() + "/books/",BookDto[].class);
@@ -149,7 +149,7 @@ public class LibraryBackendClient {
         return respEntity.getBody();
     }
 
-    /*public ReaderDto getReaderByLoginData(String email,String password){
+    public ReaderDto getReaderByLoginData(String email,String password){
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("email", email);
@@ -161,7 +161,7 @@ public class LibraryBackendClient {
         ResponseEntity<ReaderDto> respEntity = restTemplate.exchange(url, HttpMethod.GET, entity,  ReaderDto.class);
         return Optional.ofNullable(respEntity.getBody()).orElse(new ReaderDto());
     }
-*/
+
     public ReaderDto getReaderById(Long readerId){
         return restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint() + "/reader/" + readerId, ReaderDto.class);
     }
