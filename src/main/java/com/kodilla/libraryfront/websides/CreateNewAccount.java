@@ -16,12 +16,12 @@ public class CreateNewAccount extends VerticalLayout {
     private final LibraryBackendClient libraryBackendClient;
     private VerticalLayout registration = new VerticalLayout();
     private HorizontalLayout accountButtons = new HorizontalLayout();
-    TextField name;
-    TextField phoneNumber;
-    TextField emailAddress;
-    PasswordField password;
-    Button createNewAccount;
-    Button goBackToLogIn;
+    private TextField name;
+    private TextField phoneNumber;
+    private TextField emailAddress;
+    private PasswordField password;
+    private Button createNewAccount;
+    private Button goBackToLogIn;
 
     public CreateNewAccount(LibraryBackendClient libraryBackendClient){
         this.libraryBackendClient=libraryBackendClient;

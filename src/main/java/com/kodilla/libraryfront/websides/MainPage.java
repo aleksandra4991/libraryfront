@@ -2,14 +2,13 @@ package com.kodilla.libraryfront.websides;
 
 import com.kodilla.libraryfront.client.LibraryBackendClient;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
 @Route
-@StyleSheet("webapp/styles/Background.css")
+//@StyleSheet("webapp/styles/Background.css")
 public class MainPage extends VerticalLayout {
 
     private final LibraryBackendClient libraryBackendClient;
