@@ -73,12 +73,12 @@ public class LibraryBackendClient {
         restTemplate.put(libraryBackendConfigration.getLibrarybackendEndpoint()+"/reader/",httpRequest);
     }
 
-    public List<BookDto> getBooksRentedByUseer(String readerId){
+    public List<BookDto> getBooksRentedByUseer(Long readerId){
         ReaderDto boardResponse = restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint()+"/reservation/rented"+readerId,ReaderDto.class);
         return boardResponse.getBookDtoList();
     }
 
-    public List<ReservationDto> getBooksReservedByUseer(String readerId) {
+    public List<ReservationDto> getBooksReservedByUseer(Long readerId) {
         ReaderDto boardResponse = restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint() + "/reservation/reserved" + readerId, ReaderDto.class);
         return boardResponse.getReservationDtoList();
     }
