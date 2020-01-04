@@ -12,7 +12,7 @@ public class ReaderAccount extends VerticalLayout {
 
     private final LibraryBackendClient libraryBackendClient;
     private long defaultReaderId = 1;
-
+  
     //reader(left) menu
     private Button checkYourActiveReservations;
     private Button checkBooksNowRented;
@@ -25,12 +25,15 @@ public class ReaderAccount extends VerticalLayout {
     private Button findABook;
     private Button addBookToCart;
 
+
     //Cart
     private Details cartDetails;
     private Button goToCart;
 
-    public ReaderAccount(LibraryBackendClient libraryBackendClient) {
+    
+  public ReaderAccount(LibraryBackendClient libraryBackendClient) {
         this.libraryBackendClient = libraryBackendClient;
+
 
         checkYourActiveReservations = new Button("My Reservations");
         checkBooksNowRented = new Button("My Books");
@@ -96,3 +99,4 @@ public class ReaderAccount extends VerticalLayout {
         });
     }
 }
+
