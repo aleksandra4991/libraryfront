@@ -2,15 +2,17 @@ package com.kodilla.libraryfront.websides;
 
 import com.kodilla.libraryfront.client.LibraryBackendClient;
 import com.kodilla.libraryfront.dto.BookDto;
+import com.kodilla.libraryfront.dto.ReaderDto;
 import com.kodilla.libraryfront.dto.ReservationDto;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.Route;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Route
-public class ReservationsAndRents {
+public class ReservationsAndRents extends HorizontalLayout {
 
     private final LibraryBackendClient libraryBackendClient;
 
@@ -19,12 +21,10 @@ public class ReservationsAndRents {
     private Grid<BookDto> yourBooks;
     private Grid<ReservationDto> yourReservations;
 
-    private long defaultReader;
+    private String uid;
 
     public ReservationsAndRents(LibraryBackendClient libraryBackendClient) {
         this.libraryBackendClient = libraryBackendClient;
-
-        defaultReader =1;
 
         rentedBooks = new ArrayList<>();
         doneReservations = new ArrayList<>();
@@ -47,11 +47,13 @@ public class ReservationsAndRents {
     }
 
     public void showReaderRentedBooks() {
-        yourBooks.setItems(libraryBackendClient.getBooksRentedByUseer(defaultReader));
+        ReaderDto readerDto = libraryBackendClient.getReaderByUid(uid);
+        yourBooks.setItems(libraryBackendClient.getBooksRentedByUseer(readerDto));
     }
 
     public void showReaderReservations() {
-        yourReservations.setItems(libraryBackendClient.getBooksReservedByUseer(defaultReader));
+        ReaderDto readerDto = libraryBackendClient.getReaderByUid(uid);
+        yourReservations.setItems(libraryBackendClient.getBooksReservedByUseer(readerDto));
     }
 
 }

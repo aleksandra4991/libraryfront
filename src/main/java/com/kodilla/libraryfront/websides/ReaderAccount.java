@@ -48,15 +48,20 @@ public class ReaderAccount extends VerticalLayout {
         cartDetails = new Details();
         goToCart = new Button();
 
-        //checkYourActiveReservations.addClickListener(libraryBackendClient.getBooksReservedByUseer(defaultReaderId));
-        //checkBooksRentedNowByYou.addClickListener(libraryBackendClient.getBooksRentedByUseer(defaultReaderId));
+        checkYourActiveReservations.addClickListener(e->{
+            getUI().get().navigate(ReservationsAndRents.class);
+        });
+
+        checkBooksNowRented.addClickListener(e->{
+                getUI().get().navigate(ReservationsAndRents.class);
+  });
 
         editingData.addClickListener(event -> {
-            getUI().get().navigate(String.valueOf(EditYourData.class));
+            getUI().get().navigate(EditYourData.class);
         });
 
         logOut.addClickListener(event -> {
-            getUI().get().navigate(String.valueOf(MainPage.class));
+            getUI().get().navigate(MainPage.class);
         });
 
         titleSelect.setEmptySelectionAllowed(true);

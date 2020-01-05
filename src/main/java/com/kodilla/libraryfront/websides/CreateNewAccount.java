@@ -54,8 +54,12 @@ public class CreateNewAccount extends VerticalLayout {
         password.setMaxLength(15);
         password.setValueChangeMode(ValueChangeMode.EAGER);
 
-        createNewAccount.addClickListener(e->createNewReaderAccount());
-        goBackToLogIn.addClickListener(event -> getUI().get().navigate(String.valueOf(LogIn.class)));
+        createNewAccount.addClickListener(e->{
+            createNewReaderAccount();
+            createNewAccount.getUI().get().navigate((LogIn.class));
+    });
+
+        goBackToLogIn.addClickListener(event -> getUI().get().navigate((LogIn.class)));
     }
 
     private ReaderDto createNewReaderAccount() {
