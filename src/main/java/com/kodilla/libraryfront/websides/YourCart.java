@@ -2,6 +2,7 @@ package com.kodilla.libraryfront.websides;
 
 import com.kodilla.libraryfront.client.LibraryBackendClient;
 import com.kodilla.libraryfront.dto.BookDto;
+import com.kodilla.libraryfront.dto.CartBookAdderDto;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.router.Route;
 
@@ -16,14 +17,12 @@ public class YourCart {
 
     private List<BookDto> booksInCart;
     private Grid<BookDto> booksInYourCart;
-    private Button makeAReservation;
+    private Button reservationMaker;
 
-    private long defaultReader;
+    private Long idOfCart;
 
     public YourCart(LibraryBackendClient libraryBackendClient) {
         this.libraryBackendClient = libraryBackendClient;
-
-        defaultReader = 1;
 
         booksInCart = new ArrayList<>();
         booksInYourCart = new Grid<>(BookDto.class);
@@ -36,11 +35,17 @@ public class YourCart {
 
         showBooksPutInReaderCart();
 
-        makeAReservation = new Button();
-        //makeAReservation.addActionListener(libraryBackendClient.createReservationOnCartBasis());
+        reservationMaker = new Button();
+        reservationMaker.addActionListener(e->makeAReservation());
     }
 
     public void showBooksPutInReaderCart(){
-        //booksInYourCart.setItems(libraryBackendClient.getBooksPutInCart(defaultReader));
+        CartBookAdderDto cartBookAdderDto = libraryBackendClient.getCartById(idOfCart);
+        booksInYourCart.setItems(libraryBackendClient.getBooksPutinCart(cartBookAdderDto));
+    }
+
+    public void makeAReservation(){
+        CartBookAdderDto cartBookAdderDto = libraryBackendClient.getCartById(idOfCart);
+        libraryBackendClient.createReservationOnCartBasis(cartBookAdderDto.getBookDtoList(),idOfCart);
     }
 }

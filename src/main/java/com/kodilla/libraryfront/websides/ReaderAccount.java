@@ -1,6 +1,8 @@
 package com.kodilla.libraryfront.websides;
 
 import com.kodilla.libraryfront.client.LibraryBackendClient;
+import com.kodilla.libraryfront.dto.BookDto;
+import com.kodilla.libraryfront.dto.CartBookAdderDto;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.details.Details;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -11,7 +13,9 @@ import com.vaadin.flow.router.Route;
 public class ReaderAccount extends VerticalLayout {
 
     private final LibraryBackendClient libraryBackendClient;
-    private long defaultReaderId = 1;
+    private long defaultReaderId;
+    private long idOfCart;
+    private long bookId;
   
     //reader(left) menu
     private Button checkYourActiveReservations;
@@ -95,13 +99,19 @@ public class ReaderAccount extends VerticalLayout {
             }
         });
 
-        //addBookToCart.addClickListener();
+        addBookToCart.addClickListener(e->putABookInACart());
 
         cartDetails.addContent();
 
         goToCart.addClickListener(event -> {
             getUI().get().navigate(String.valueOf(EditYourData.class));
         });
+    }
+
+    public void putABookInACart(){
+        CartBookAdderDto cartBookAdderDto = libraryBackendClient.getCartById(idOfCart);
+        BookDto bookDto = libraryBackendClient.getSpecifiedBook(bookId);
+        libraryBackendClient.putBookInACart(bookDto,cartBookAdderDto.getCartId());
     }
 }
 

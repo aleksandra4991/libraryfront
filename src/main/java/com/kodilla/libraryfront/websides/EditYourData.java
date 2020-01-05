@@ -48,7 +48,7 @@ public class EditYourData extends HorizontalLayout {
         password.setMaxLength(15);
         password.setValueChangeMode(ValueChangeMode.EAGER);
 
-        //saveTheData.addActionListener(libraryBackendClient.changeReaderData(););
+        saveTheData.addActionListener(e->editTheReaderData());
 
     }
 
@@ -65,6 +65,6 @@ public class EditYourData extends HorizontalLayout {
 
     private void editTheReaderData() {
         ReaderDto readerDto = libraryBackendClient.getReaderByUid(uid);
-        libraryBackendClient.changeReaderData(new ReaderDto(readerDto.getReaderName(),readerDto.getPhoneNumber(),readerDto.getEmailAdress(),readerDto.getPassword()));
+        libraryBackendClient.changeReaderData(new ReaderDto(readerDto.getReaderId(),readerDto.getUid(),name.getValue(),phoneNumber.getValue(),emailAddress.getValue(),readerDto.getStatus(),password.getValue()));
     }
 }
