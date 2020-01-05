@@ -2,10 +2,7 @@ package com.kodilla.libraryfront.client;
 
 import com.google.gson.Gson;
 import com.kodilla.libraryfront.configuration.LibraryBackendConfigration;
-import com.kodilla.libraryfront.dto.BookDto;
-import com.kodilla.libraryfront.dto.GenreDto;
-import com.kodilla.libraryfront.dto.ReaderDto;
-import com.kodilla.libraryfront.dto.ReservationDto;
+import com.kodilla.libraryfront.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
@@ -32,6 +29,19 @@ public class LibraryBackendClient {
     public List<BookDto> getAllBooks(){
         BookDto[] boardResponse = restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint() + "/books/",BookDto[].class);
         return Stream.of(boardResponse).collect(Collectors.toList());
+    }
+
+    public List<BookDto> getBooksPutinCart(CartBookAdderDto cartBookAdderDto){
+        CartBookAdderDto boardResponse = restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint()+"/books/cart"+cartBookAdderDto,CartBookAdderDto.class);
+        return boardResponse.getBookDtoList();
+    }
+
+    public CartBookAdderDto getCartById(Long cartId){
+        return restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint() + "/cart/" + cartId, CartBookAdderDto.class);
+    }
+
+    public BookDto getSpecifiedBook(Long bookId){
+        return restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint() + "/book/" + bookId, BookDto.class);
     }
 
     public List<BookDto> getBooksOfTheAuthor(String author){
@@ -73,13 +83,13 @@ public class LibraryBackendClient {
         restTemplate.put(libraryBackendConfigration.getLibrarybackendEndpoint()+"/reader/",httpRequest);
     }
 
-    public List<BookDto> getBooksRentedByUseer(ReaderDto readerId){
-        ReaderDto boardResponse = restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint()+"/reservation/rented"+readerId,ReaderDto.class);
+    public List<BookDto> getBooksRentedByUseer(ReaderDto readerDto){
+        ReaderDto boardResponse = restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint()+"/reservation/rented"+readerDto,ReaderDto.class);
         return boardResponse.getBookDtoList();
     }
 
-    public List<ReservationDto> getBooksReservedByUseer(ReaderDto readerId) {
-        ReaderDto boardResponse = restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint() + "/reservation/reserved" + readerId, ReaderDto.class);
+    public List<ReservationDto> getBooksReservedByUseer(ReaderDto readerDto) {
+        ReaderDto boardResponse = restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint() + "/reservation/reserved" + readerDto, ReaderDto.class);
         return boardResponse.getReservationDtoList();
     }
 
@@ -99,10 +109,10 @@ public class LibraryBackendClient {
         restTemplate.delete(libraryBackendConfigration.getLibrarybackendEndpoint()+"/book/delete/"+cartId,httpRequest);
     }
 
-    public ReservationDto createReservationOnCartBasis(ReservationDto reservationDto,Long cartId){
+    public ReservationDto createReservationOnCartBasis(List<BookDto> bookDtoList,Long cartId){
         Gson gson = new Gson();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-        String contentInJson = gson.toJson(reservationDto);
+        String contentInJson = gson.toJson(bookDtoList);
         HttpEntity<String> httpRequest = new HttpEntity<String>(contentInJson,httpHeaders);
         return restTemplate.postForObject(libraryBackendConfigration.getLibrarybackendEndpoint()+"/reservation/create/cart/"+cartId,httpRequest,ReservationDto.class);
     }

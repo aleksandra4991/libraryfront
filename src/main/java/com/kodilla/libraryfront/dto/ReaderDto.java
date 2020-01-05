@@ -26,7 +26,14 @@ public class ReaderDto {
     public ReaderDto() {
     }
 
-    public ReaderDto(String value, String phoneNumberValue, String emailAddressValue, String passwordValue) {
+    public ReaderDto(Long readerId, String uid, String readerName, String phoneNumber, String emailAdress, boolean status, String password) {
+        this.readerId = readerId;
+        this.uid = uid;
+        this.readerName = readerName;
+        this.phoneNumber = phoneNumber;
+        this.emailAdress = emailAdress;
+        this.status = status;
+        this.password = password;
     }
 
     public ReaderDto(String readerName, boolean status) {
@@ -34,10 +41,11 @@ public class ReaderDto {
         this.status = status;
     }
 
-    public ReaderDto(String readerName, String phoneNumber, String emailAdress) {
+    public ReaderDto(String readerName, String phoneNumber, String emailAdress, String password) {
         this.readerName = readerName;
         this.phoneNumber = phoneNumber;
         this.emailAdress = emailAdress;
+        this.password = password;
     }
 
     public ReaderDto(Long readerId, String uid, String readerName, String phoneNumber, String emailAdress, boolean status, String password, List<ReservationDto> reservationDtoList, List<BookDto> bookDtoList) {
