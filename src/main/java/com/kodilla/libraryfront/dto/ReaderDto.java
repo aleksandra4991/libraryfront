@@ -10,6 +10,7 @@ import java.util.List;
 public class ReaderDto {
 
     private Long readerId;
+    private String uid;
     private String readerName;
     private String phoneNumber;
     private String emailAdress;
@@ -39,6 +40,17 @@ public class ReaderDto {
         this.emailAdress = emailAdress;
     }
 
+    public ReaderDto(Long readerId, String uid, String readerName, String phoneNumber, String emailAdress, boolean status, String password, List<ReservationDto> reservationDtoList, List<BookDto> bookDtoList) {
+        this.readerId = readerId;
+        this.uid = uid;
+        this.readerName = readerName;
+        this.phoneNumber = phoneNumber;
+        this.emailAdress = emailAdress;
+        this.status = status;
+        this.password = password;
+        this.reservationDtoList = reservationDtoList;
+        this.bookDtoList = bookDtoList;
+    }
 
     public void blockUser(){
         this.status = false;
@@ -46,6 +58,14 @@ public class ReaderDto {
 
     public Long getReaderId() {
         return readerId;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getReaderName() {
