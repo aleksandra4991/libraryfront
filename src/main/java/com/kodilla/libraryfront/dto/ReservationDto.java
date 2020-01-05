@@ -16,6 +16,11 @@ public class ReservationDto {
     public ReservationDto() {
     }
 
+    public ReservationDto(AtomicBoolean active, String reservedBooks) {
+        this.active = active;
+        this.reservedBooks = reservedBooks;
+    }
+
     public ReservationDto(AtomicBoolean active, String reader, String reservedBooks) {
         this.active = active;
         this.reader = reader;
