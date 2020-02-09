@@ -2,10 +2,14 @@ package com.kodilla.libraryfront.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReaderDto {
 
@@ -26,19 +30,12 @@ public class ReaderDto {
     public ReaderDto() {
     }
 
-    public ReaderDto(Long readerId, String uid, String readerName, String phoneNumber, String emailAdress, boolean status, String password) {
+    public ReaderDto(Long readerId, String readerName, String phoneNumber, String emailAdress, String password) {
         this.readerId = readerId;
-        this.uid = uid;
         this.readerName = readerName;
         this.phoneNumber = phoneNumber;
         this.emailAdress = emailAdress;
-        this.status = status;
         this.password = password;
-    }
-
-    public ReaderDto(String readerName, boolean status) {
-        this.readerName = readerName;
-        this.status = status;
     }
 
     public ReaderDto(String readerName, String phoneNumber, String emailAdress, String password) {
@@ -48,14 +45,13 @@ public class ReaderDto {
         this.password = password;
     }
 
-    public ReaderDto(Long readerId, String uid, String readerName, String phoneNumber, String emailAdress, boolean status, String password, List<ReservationDto> reservationDtoList, List<BookDto> bookDtoList) {
-        this.readerId = readerId;
-        this.uid = uid;
-        this.readerName = readerName;
-        this.phoneNumber = phoneNumber;
+    public ReaderDto(String emailAdress, String password) {
         this.emailAdress = emailAdress;
-        this.status = status;
         this.password = password;
+    }
+
+    public ReaderDto(Long readerId, List<ReservationDto> reservationDtoList, List<BookDto> bookDtoList) {
+        this.readerId = readerId;
         this.reservationDtoList = reservationDtoList;
         this.bookDtoList = bookDtoList;
     }
@@ -80,24 +76,28 @@ public class ReaderDto {
         return readerName;
     }
 
+    public void setReaderName(String readerName) {
+        this.readerName = readerName;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getEmailAdress() {
         return emailAdress;
     }
 
-    public boolean getStatus() {
+    public void setEmailAdress(String emailAdress) {
+        this.emailAdress = emailAdress;
+    }
+
+    public boolean isStatus() {
         return status;
-    }
-
-    public void setReaderId(Long readerId) {
-        this.readerId = readerId;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
     }
 
     public String getPassword() {
@@ -112,12 +112,12 @@ public class ReaderDto {
         return reservationDtoList;
     }
 
-    public List<BookDto> getBookDtoList() {
-        return bookDtoList;
-    }
-
     public void setReservationDtoList(List<ReservationDto> reservationDtoList) {
         this.reservationDtoList = reservationDtoList;
+    }
+
+    public List<BookDto> getBookDtoList() {
+        return bookDtoList;
     }
 
     public void setBookDtoList(List<BookDto> bookDtoList) {

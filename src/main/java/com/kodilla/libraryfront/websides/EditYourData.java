@@ -65,6 +65,6 @@ public class EditYourData extends HorizontalLayout {
 
     private void editTheReaderData() {
         ReaderDto readerDto = libraryBackendClient.getReaderByUid(uid);
-        libraryBackendClient.changeReaderData(new ReaderDto(readerDto.getReaderId(),readerDto.getUid(),name.getValue(),phoneNumber.getValue(),emailAddress.getValue(),readerDto.getStatus(),password.getValue()));
+        libraryBackendClient.changeReaderData(new ReaderDto(readerDto.getReaderId(),name.getValue(),phoneNumber.getValue(),emailAddress.getValue(),password.getValue()));
     }
 }
