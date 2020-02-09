@@ -109,12 +109,18 @@ public class LibraryBackendClient {
         restTemplate.delete(libraryBackendConfigration.getLibrarybackendEndpoint()+"/book/delete/"+cartId,httpRequest);
     }
 
+
     public ReservationDto createReservationOnCartBasis(List<BookDto> bookDtoList,Long cartId){
         Gson gson = new Gson();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         String contentInJson = gson.toJson(bookDtoList);
         HttpEntity<String> httpRequest = new HttpEntity<String>(contentInJson,httpHeaders);
         return restTemplate.postForObject(libraryBackendConfigration.getLibrarybackendEndpoint()+"/reservation/create/cart/"+cartId,httpRequest,ReservationDto.class);
+    }
+
+    public List<BookDto> getBooksAlreadyPutInCart(CartBookAdderDto cartBookAdderDto){
+        CartBookAdderDto boardResponse = restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint()+"/books/AlreadyInCart"+cartBookAdderDto,CartBookAdderDto.class);
+        return boardResponse.getBookDtoList();
     }
 
     public BookDto createBook(BookDto bookDto){

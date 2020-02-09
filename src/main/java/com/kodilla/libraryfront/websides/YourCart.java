@@ -17,9 +17,12 @@ public class YourCart {
 
     private List<BookDto> booksInCart;
     private Grid<BookDto> booksInYourCart;
+    private Button bookPutInCartChecker;
+    private Button bookDeleterFromACart;
     private Button reservationMaker;
 
     private Long idOfCart;
+    private Long bookId;
 
     public YourCart(LibraryBackendClient libraryBackendClient) {
         this.libraryBackendClient = libraryBackendClient;
@@ -33,10 +36,14 @@ public class YourCart {
         booksInYourCart.addColumn(BookDto::getSignature).setHeader("Signature");
         booksInYourCart.addColumn(BookDto::getGenreId).setHeader("GenreId");
 
-        showBooksPutInReaderCart();
-
+        bookPutInCartChecker = new Button();
+        bookDeleterFromACart = new Button();
         reservationMaker = new Button();
+
+        bookPutInCartChecker.addActionListener(e->showBooksPutInReaderCart());
+        bookDeleterFromACart.addActionListener(e->deleteBookFromACart());
         reservationMaker.addActionListener(e->makeAReservation());
+
     }
 
     public void showBooksPutInReaderCart(){
@@ -44,8 +51,15 @@ public class YourCart {
         booksInYourCart.setItems(libraryBackendClient.getBooksPutinCart(cartBookAdderDto));
     }
 
+    public void deleteBookFromACart(){
+        CartBookAdderDto cartBookAdderDto = libraryBackendClient.getCartById(idOfCart);
+        BookDto bookDto = libraryBackendClient.getSpecifiedBook(bookId);
+        libraryBackendClient.deleteBookFromACart(bookDto,cartBookAdderDto.getCartId());
+    }
+
     public void makeAReservation(){
         CartBookAdderDto cartBookAdderDto = libraryBackendClient.getCartById(idOfCart);
         libraryBackendClient.createReservationOnCartBasis(cartBookAdderDto.getBookDtoList(),idOfCart);
     }
+
 }
