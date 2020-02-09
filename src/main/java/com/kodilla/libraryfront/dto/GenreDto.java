@@ -1,22 +1,18 @@
 package com.kodilla.libraryfront.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GenreDto {
 
     private Long genreId;
     private String name;
 
-    public GenreDto() {
-    }
-
     public GenreDto(String name) {
-        this.name = name;
-    }
-
-    public GenreDto(Long genreId, String name) {
-        this.genreId = genreId;
         this.name = name;
     }
 
@@ -24,7 +20,15 @@ public class GenreDto {
         return genreId;
     }
 
+    public void setGenreId(Long genreId) {
+        this.genreId = genreId;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

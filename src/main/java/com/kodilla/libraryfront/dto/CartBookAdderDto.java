@@ -1,20 +1,17 @@
 package com.kodilla.libraryfront.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
+@AllArgsConstructor
+@NoArgsConstructor
 public class CartBookAdderDto {
 
     private Long cartId;
 
     private List<BookDto> bookDtoList;
-
-    public CartBookAdderDto() {
-    }
-
-    public CartBookAdderDto(Long cartId, List<BookDto> bookDtoList) {
-        this.cartId = cartId;
-        this.bookDtoList = bookDtoList;
-    }
 
     public Long getCartId() {
         return cartId;
