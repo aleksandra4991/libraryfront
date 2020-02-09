@@ -178,7 +178,7 @@ public class LibraryBackendClient {
         return Optional.ofNullable(respEntity.getBody()).orElse(new ReaderDto());
     }
 
-    public ReaderDto getReaderByUid(String uid){
-        return restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint() + "/reader/" + uid, ReaderDto.class);
+    public ReaderDto getReaderByUid(Long readerId){
+        return restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint() + "/reader/" + readerId, ReaderDto.class);
     }
 }
