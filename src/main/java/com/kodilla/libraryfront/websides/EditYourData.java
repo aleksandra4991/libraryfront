@@ -25,7 +25,7 @@ public class EditYourData extends VerticalLayout {
     private PasswordField password;
     private Button saveTheData;
 
-    private Long readerId;
+    private String readerId;
 
     public EditYourData(LibraryBackendClient libraryBackendClient) {
         this.libraryBackendClient = libraryBackendClient;
@@ -64,9 +64,9 @@ public class EditYourData extends VerticalLayout {
 
     }
 
-    public void setParameter(BeforeEvent event, @OptionalParameter Long parameter) {
+    public void setParameter(BeforeEvent event, @OptionalParameter String parameter) {
         if (parameter != null && !parameter.equals("null")) {
-            readerId = parameter;
+            String readerId = parameter;
             ReaderDto readerDto = libraryBackendClient.getReaderByUid(readerId);
             name.setValue(readerDto.getReaderName());
             phoneNumber.setValue(readerDto.getPhoneNumber());
