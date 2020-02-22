@@ -5,6 +5,7 @@ import com.kodilla.libraryfront.dto.BookDto;
 import com.kodilla.libraryfront.dto.CartBookAdderDto;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.details.Details;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.router.Route;
@@ -16,8 +17,16 @@ public class ReaderAccount extends VerticalLayout {
     private long defaultReaderId;
     private long idOfCart;
     private long bookId;
-  
-    //reader(left) menu
+
+    private VerticalLayout pageLayout = new VerticalLayout();
+    private HorizontalLayout mainUpMenu = new HorizontalLayout();
+    private HorizontalLayout detailsMenu = new HorizontalLayout();
+    private VerticalLayout lookForAndChooseLeftMenu = new VerticalLayout();
+    private HorizontalLayout selection = new HorizontalLayout();
+    private HorizontalLayout choosingABook = new HorizontalLayout();
+    private HorizontalLayout cartRightBottomMenu = new HorizontalLayout();
+
+    //reader(right) menu
     private Button checkYourActiveReservations;
     private Button checkBooksNowRented;
     private Button editingData;
@@ -38,7 +47,6 @@ public class ReaderAccount extends VerticalLayout {
   public ReaderAccount(LibraryBackendClient libraryBackendClient) {
         this.libraryBackendClient = libraryBackendClient;
 
-
         checkYourActiveReservations = new Button("My Reservations");
         checkBooksNowRented = new Button("My Books");
         editingData = new Button("Edit your profile");
@@ -50,7 +58,26 @@ public class ReaderAccount extends VerticalLayout {
         addBookToCart = new Button("Add to cart");
 
         cartDetails = new Details();
-        goToCart = new Button();
+        goToCart = new Button("Cart");
+
+        add(pageLayout);
+        pageLayout.addComponentAtIndex(0,mainUpMenu);
+        pageLayout.addComponentAtIndex(1,detailsMenu);
+        mainUpMenu.addComponentAtIndex(0,checkBooksNowRented);
+        mainUpMenu.addComponentAtIndex(1,checkYourActiveReservations);
+        mainUpMenu.addComponentAtIndex(2,editingData);
+        mainUpMenu.addComponentAtIndex(3,logOut);
+        detailsMenu.addComponentAtIndex(0,lookForAndChooseLeftMenu);
+        detailsMenu.addComponentAtIndex(1,cartRightBottomMenu);
+        lookForAndChooseLeftMenu.addComponentAtIndex(0,selection);
+        lookForAndChooseLeftMenu.addComponentAtIndex(1,choosingABook);
+        selection.addComponentAtIndex(0,titleSelect);
+        selection.addComponentAtIndex(1,authorSelect);
+        choosingABook.addComponentAtIndex(0,findABook);
+        choosingABook.addComponentAtIndex(1,addBookToCart);
+        cartRightBottomMenu.addComponentAtIndex(0,cartDetails);
+        cartRightBottomMenu.addComponentAtIndex(1,goToCart);
+        pageLayout.setAlignItems(Alignment.CENTER);
 
         checkYourActiveReservations.addClickListener(e->{
             getUI().get().navigate(ReservationsAndRents.class);
