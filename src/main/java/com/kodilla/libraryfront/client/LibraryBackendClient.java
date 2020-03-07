@@ -84,7 +84,7 @@ public class LibraryBackendClient {
     }
 
     public List<BookDto> getBooksRentedByUseer(ReaderDto readerDto){
-        ReaderDto boardResponse = restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint()+"/reservation/rented"+readerDto,ReaderDto.class);
+        ReaderDto boardResponse = restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint()+"/books/rented"+readerDto,ReaderDto.class);
         return boardResponse.getBookDtoList();
     }
 
