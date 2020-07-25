@@ -7,8 +7,11 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.details.Details;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.select.Select;
+import com.vaadin.flow.component.textfield.Autocomplete;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
+
 
 @Route
 public class ReaderAccount extends VerticalLayout {
@@ -33,8 +36,8 @@ public class ReaderAccount extends VerticalLayout {
     private Button logOut;
 
     //lookingForABook(left)manu
-    private Select<String> titleSelect;
-    private Select<String> authorSelect;
+    private TextField titleSelect;
+    private TextField authorSelect;
     private Button findABook;
     private Button addBookToCart;
 
@@ -52,8 +55,8 @@ public class ReaderAccount extends VerticalLayout {
         editingData = new Button("Edit your profile");
         logOut = new Button("Log out");
 
-        titleSelect = new Select<>();
-        authorSelect = new Select<>();
+        titleSelect = new TextField();
+        authorSelect = new TextField();
         findABook = new Button("Find Book");
         addBookToCart = new Button("Add to cart");
 
@@ -95,27 +98,24 @@ public class ReaderAccount extends VerticalLayout {
             getUI().get().navigate(MainPage.class);
         });
 
-        titleSelect.setEmptySelectionAllowed(true);
+        titleSelect.setValueChangeMode(ValueChangeMode.EAGER);
+        titleSelect.setAutocomplete(Autocomplete.ON);
         titleSelect.setRequiredIndicatorVisible(true);
         titleSelect.setLabel("Title");
         titleSelect.setPlaceholder("Select The Title");
-        titleSelect.setItems();
 
-        authorSelect.setEmptySelectionAllowed(true);
+        authorSelect.setValueChangeMode(ValueChangeMode.EAGER);
+        authorSelect.setAutocomplete(Autocomplete.ON);
+        authorSelect.setAutoselect(true);
         authorSelect.setRequiredIndicatorVisible(true);
         authorSelect.setLabel("Author");
         authorSelect.setPlaceholder("Select the Author");
-        authorSelect.setItems();
 
         findABook.addClickListener(e -> {
             String location;
             String selectedTitle = titleSelect.getValue();
             String selectedAuthor = authorSelect.getValue();
-            if (selectedTitle != null && selectedAuthor != null) {
-                location = "list/" + selectedTitle + "&" + selectedAuthor + "&" + defaultReaderId;
-                findABook.getUI().ifPresent(ui ->
-                        ui.navigate(location));
-            } else if (selectedTitle == null && selectedAuthor != null) {
+            if (selectedTitle == null && selectedAuthor != null) {
                 location = "list/" + "&null" + selectedAuthor + "&" + defaultReaderId;
                 findABook.getUI().ifPresent(ui ->
                         ui.navigate(location));
