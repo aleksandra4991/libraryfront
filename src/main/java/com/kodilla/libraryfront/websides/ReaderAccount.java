@@ -17,7 +17,7 @@ import com.vaadin.flow.router.Route;
 public class ReaderAccount extends VerticalLayout {
 
     private final LibraryBackendClient libraryBackendClient;
-    private long defaultReaderId;
+    private String uuid = "1";
     private long idOfCart;
     private long bookId;
 
@@ -115,12 +115,16 @@ public class ReaderAccount extends VerticalLayout {
             String location;
             String selectedTitle = titleSelect.getValue();
             String selectedAuthor = authorSelect.getValue();
-            if (selectedTitle == null && selectedAuthor != null) {
-                location = "list/" + "&null" + selectedAuthor + "&" + defaultReaderId;
+            if (selectedTitle != null && selectedAuthor != null) {
+                location = "list/" + selectedTitle + "&" + selectedAuthor + "&" + libraryBackendClient.getReaderByUid(uuid);
+                findABook.getUI().ifPresent(ui ->
+                        ui.navigate(location));
+            } else if (selectedTitle == null && selectedAuthor != null) {
+                location = "list/" + "null&" + selectedAuthor + "&" + libraryBackendClient.getReaderByUid(uuid);
                 findABook.getUI().ifPresent(ui ->
                         ui.navigate(location));
             } else if (selectedTitle != null && selectedAuthor == null) {
-                location = "list/null&" + selectedTitle + "&" + defaultReaderId;
+                location = "list/" + selectedTitle + "&null&" + libraryBackendClient.getReaderByUid(uuid);
                 findABook.getUI().ifPresent(ui ->
                         ui.navigate(location));
             }
@@ -130,15 +134,19 @@ public class ReaderAccount extends VerticalLayout {
 
         cartDetails.addContent();
 
-        goToCart.addClickListener(event -> {
-            getUI().get().navigate(String.valueOf(EditYourData.class));
-        });
+        goToCart.addClickListener(e-> viewYourCart());
+
     }
 
     public void putABookInACart(){
         CartBookAdderDto cartBookAdderDto = libraryBackendClient.getCartById(idOfCart);
         BookDto bookDto = libraryBackendClient.getSpecifiedBook(bookId);
         libraryBackendClient.putBookInACart(bookDto,cartBookAdderDto.getCartId());
+    }
+
+    public void viewYourCart(){
+        CartBookAdderDto cartBookAdderDto = libraryBackendClient.getCartById(idOfCart);
+        libraryBackendClient.getBooksAlreadyPutInCart(cartBookAdderDto);
     }
 }
 
