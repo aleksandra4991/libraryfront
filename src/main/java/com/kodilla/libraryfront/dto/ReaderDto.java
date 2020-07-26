@@ -2,12 +2,10 @@ package com.kodilla.libraryfront.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReaderDto {
 
@@ -26,6 +24,18 @@ public class ReaderDto {
     private List<BookDto> bookDtoList = new ArrayList<>();
 
     public ReaderDto() {
+    }
+
+    public ReaderDto(Long readerId, String uid, String readerName, String phoneNumber, String emailAdress, boolean status, String password, List<ReservationDto> reservationDtoList, List<BookDto> bookDtoList) {
+        this.readerId = readerId;
+        this.uid = uid;
+        this.readerName = readerName;
+        this.phoneNumber = phoneNumber;
+        this.emailAdress = emailAdress;
+        this.status = status;
+        this.password = password;
+        this.reservationDtoList = reservationDtoList;
+        this.bookDtoList = bookDtoList;
     }
 
     public ReaderDto(Long readerId, String readerName, String phoneNumber, String emailAdress, String password) {
