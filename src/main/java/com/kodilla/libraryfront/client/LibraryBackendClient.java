@@ -26,10 +26,14 @@ public class LibraryBackendClient {
 
     private HttpHeaders httpHeaders = new HttpHeaders();
 
+
     public List<BookDto> getAllBooks(){
         BookDto[] boardResponse = restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint() + "/books",BookDto[].class);
+
+    /*public List<BookDto> getAllBooks(){
+        BookDto[] boardResponse = restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint() + "/books/",BookDto[].class);
         return Stream.of(boardResponse).collect(Collectors.toList());
-    }
+    }*/
 
     public List<BookDto> getBooksPutinCart(CartBookAdderDto cartBookAdderDto){
         CartBookAdderDto boardResponse = restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint()+"/books/cart"+cartBookAdderDto,CartBookAdderDto.class);
@@ -49,6 +53,12 @@ public class LibraryBackendClient {
         return Stream.of(boardResponse).collect(Collectors.toList());
     }
 
+
+    public List<BookDto> getBooksOfTheTitle(String title){
+        BookDto[] boardResponse = restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint() +"/books/title/"+title,BookDto[].class);
+        return Stream.of(boardResponse).collect(Collectors.toList());
+    }
+
     /*public List<BookDto> getBooksAvaiableToRent(boolean rented){
         BookDto[] boardResponse = restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint() +"/books/rented/"+rented,BookDto[].class);
         return Stream.of(boardResponse).collect(Collectors.toList());
@@ -61,7 +71,7 @@ public class LibraryBackendClient {
 
     public GenreDto getSpecifiedByIdGenre(Long genreId){
         return restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint()+"/genre/"+genreId,GenreDto.class);
-    }
+    }*/
 
     public void deleteReservation(Long reservationId){
         restTemplate.delete(libraryBackendConfigration.getLibrarybackendEndpoint()+"/reservation/"+reservationId, ReservationDto.class);
@@ -84,7 +94,7 @@ public class LibraryBackendClient {
     }
 
     public List<BookDto> getBooksRentedByUseer(ReaderDto readerDto){
-        ReaderDto boardResponse = restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint()+"/reservation/rented"+readerDto,ReaderDto.class);
+        ReaderDto boardResponse = restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint()+"/books/rented"+readerDto,ReaderDto.class);
         return boardResponse.getBookDtoList();
     }
 
@@ -123,7 +133,7 @@ public class LibraryBackendClient {
         return boardResponse.getBookDtoList();
     }
 
-    public BookDto createBook(BookDto bookDto){
+    /*public BookDto createBook(BookDto bookDto){
         Gson gson = new Gson();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         String contentInJson = gson.toJson(bookDto);
@@ -146,7 +156,7 @@ public class LibraryBackendClient {
     public List<ReservationDto> getAllReservations(){
         ReservationDto[] boardResponse = restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint() + "/reservations",ReservationDto[].class);
         return Stream.of(boardResponse).collect(Collectors.toList());
-    }
+    }*/
 
     public ReservationDto getSpecifiedByIdReservation(Long reservationId){
         return restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint()+"/reservation/"+reservationId,ReservationDto.class);
@@ -178,7 +188,7 @@ public class LibraryBackendClient {
         return Optional.ofNullable(respEntity.getBody()).orElse(new ReaderDto());
     }
 
-    public ReaderDto getReaderByUid(String uid){
-        return restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint() + "/reader/" + uid, ReaderDto.class);
+    public ReaderDto getReaderByUid(String uuid){
+        return restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint() + "/reader/" + uuid, ReaderDto.class);
     }
 }

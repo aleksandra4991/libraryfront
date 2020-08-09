@@ -17,13 +17,13 @@ public class BookDto {
     private boolean rented;
     private String genreId;
 
-    public BookDto(String title, String author, Long year, String signature, String genreId) {
+    /*public BookDto(String title, String author, Long year, String signature, String genreId) {
         this.title = title;
         this.author = author;
         this.year = year;
         this.signature = signature;
         this.genreId = genreId;
-    }
+    }*/
 
     public Long getBookId() {
         return bookId;
