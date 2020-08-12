@@ -3,6 +3,8 @@ package com.kodilla.libraryfront.websides;
 import com.kodilla.libraryfront.client.LibraryBackendClient;
 import com.kodilla.libraryfront.dto.ReaderDto;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
@@ -22,6 +24,13 @@ public class CreateNewAccount extends VerticalLayout {
     private PasswordField password;
     private Button createNewAccount;
     private Button goBackToLogIn;
+
+    private Label registrationIncorrectLabel = new Label("Podany email lub hasło są nieprawidłowe." +
+            " Spróbuj ponownie.");
+
+    private Dialog registrationIncorrectDialog = new Dialog();
+
+    private String uuid;
 
     public CreateNewAccount(LibraryBackendClient libraryBackendClient){
         this.libraryBackendClient=libraryBackendClient;
@@ -54,10 +63,24 @@ public class CreateNewAccount extends VerticalLayout {
         password.setMaxLength(15);
         password.setValueChangeMode(ValueChangeMode.EAGER);
 
+        registrationIncorrectDialog.add(registrationIncorrectLabel);
+
         createNewAccount.addClickListener(e->{
             createNewReaderAccount();
-            createNewAccount.getUI().get().navigate((LogIn.class));
-    });
+            try{
+                uuid = createNewReaderAccount().getUid();
+                String location = "" + uuid;
+                createNewAccount.getUI().ifPresent((ui ->
+                        ui.navigate(location)));
+
+            } catch (Exception n) {
+                registrationIncorrectDialog.open();
+            }
+            name.clear();
+            phoneNumber.clear();
+            emailAddress.clear();
+            password.clear();
+        });
 
         goBackToLogIn.addClickListener(event -> getUI().get().navigate((LogIn.class)));
     }
