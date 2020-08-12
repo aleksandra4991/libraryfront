@@ -72,7 +72,7 @@ public class LibraryBackendClient {
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         String contentInJson = gson.toJson(readerDto);
         HttpEntity<String> httpRequest = new HttpEntity<String>(contentInJson,httpHeaders);
-        return restTemplate.postForObject(libraryBackendConfigration.getLibrarybackendEndpoint() + "/reader",httpRequest,ReaderDto.class);
+        return restTemplate.postForObject(libraryBackendConfigration.getLibrarybackendEndpoint() +  "/reader",httpRequest,ReaderDto.class);
     }
 
     public void changeReaderData(ReaderDto readerDto){
