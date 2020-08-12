@@ -81,8 +81,6 @@ public class CreateNewAccount extends VerticalLayout {
             emailAddress.clear();
             password.clear();
         });
-            //createNewAccount.getUI().get().navigate((LogIn.class));
-   // });
 
         goBackToLogIn.addClickListener(event -> getUI().get().navigate((LogIn.class)));
     }
