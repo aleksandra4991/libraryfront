@@ -3,17 +3,22 @@ package com.kodilla.libraryfront.websides;
 import com.kodilla.libraryfront.client.LibraryBackendClient;
 import com.kodilla.libraryfront.dto.BookDto;
 import com.kodilla.libraryfront.dto.CartBookAdderDto;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Route
-public class YourCart {
+public class YourCart extends VerticalLayout {
 
     private final LibraryBackendClient libraryBackendClient;
+
+    private VerticalLayout layoutOfCart = new VerticalLayout();
+    private HorizontalLayout panelButtons = new HorizontalLayout();
 
     private List<BookDto> booksInCart;
     private Grid<BookDto> booksInYourCart;
@@ -36,14 +41,22 @@ public class YourCart {
         booksInYourCart.addColumn(BookDto::getSignature).setHeader("Signature");
         booksInYourCart.addColumn(BookDto::getGenreId).setHeader("GenreId");
 
-        bookPutInCartChecker = new Button();
-        bookDeleterFromACart = new Button();
-        reservationMaker = new Button();
+        bookPutInCartChecker = new Button("Put in a Cart");
+        bookDeleterFromACart = new Button("Delete From a Cart");
+        reservationMaker = new Button("Make a Reservation");
 
-        bookPutInCartChecker.addActionListener(e->showBooksPutInReaderCart());
-        bookDeleterFromACart.addActionListener(e->deleteBookFromACart());
-        reservationMaker.addActionListener(e->makeAReservation());
+        bookPutInCartChecker.addClickListener(e->showBooksPutInReaderCart());
+        bookDeleterFromACart.addClickListener(e->deleteBookFromACart());
+        reservationMaker.addClickListener(e->{
+            makeAReservation();
+            reservationMaker.getUI().get().navigate((ReservationsAndRents.class));
+        });
 
+        add(layoutOfCart,panelButtons);
+        panelButtons.add(bookPutInCartChecker,bookDeleterFromACart,reservationMaker);
+        layoutOfCart.addComponentAsFirst(booksInYourCart);
+        layoutOfCart.add(panelButtons);
+        layoutOfCart.setHorizontalComponentAlignment(Alignment.CENTER,booksInYourCart,panelButtons);
     }
 
     public void showBooksPutInReaderCart(){
