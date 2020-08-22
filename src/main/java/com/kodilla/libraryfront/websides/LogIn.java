@@ -5,6 +5,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
@@ -15,7 +16,7 @@ public class LogIn extends VerticalLayout {
     private boolean logged = true;
 
     private TextField email;
-    private TextField password;
+    private PasswordField password;
     private Button logIn;
     private Dialog loginIncorrectDialog;
     private Label loginIncorrectLabel;
@@ -25,7 +26,7 @@ public class LogIn extends VerticalLayout {
         this.libraryBackendClient=libraryBackendClient;
 
         email = new TextField("Email");
-        password = new TextField("Password");
+        password = new PasswordField("Password","Min.8liter,1 znak specjalny");
         logIn = new Button("Log In");
         loginIncorrectDialog = new Dialog();
         loginIncorrectLabel = new Label("Podane imię lub hasło są nieprawidłowe." +
