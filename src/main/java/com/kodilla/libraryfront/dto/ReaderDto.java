@@ -13,7 +13,7 @@ public class ReaderDto {
     private String uid;
     private String readerName;
     private String phoneNumber;
-    private String emailAdress;
+    private String emailAddress;
     private boolean status;
     private String password;
 
@@ -26,35 +26,45 @@ public class ReaderDto {
     public ReaderDto() {
     }
 
-    public ReaderDto(Long readerId, String uid, String readerName, String phoneNumber, String emailAdress, boolean status, String password, List<ReservationDto> reservationDtoList, List<BookDto> bookDtoList) {
+    public ReaderDto(Long readerId, String readerName, String phoneNumber, String emailAddress, boolean status, String password,String uid) {
         this.readerId = readerId;
         this.uid = uid;
         this.readerName = readerName;
         this.phoneNumber = phoneNumber;
-        this.emailAdress = emailAdress;
+        this.emailAddress = emailAddress;
+        this.status = status;
+        this.password = password;
+    }
+
+    public ReaderDto(Long readerId, String uid, String readerName, String phoneNumber, String emailAddress, boolean status, String password, List<ReservationDto> reservationDtoList, List<BookDto> bookDtoList) {
+        this.readerId = readerId;
+        this.uid = uid;
+        this.readerName = readerName;
+        this.phoneNumber = phoneNumber;
+        this.emailAddress = emailAddress;
         this.status = status;
         this.password = password;
         this.reservationDtoList = reservationDtoList;
         this.bookDtoList = bookDtoList;
     }
 
-    public ReaderDto(Long readerId, String readerName, String phoneNumber, String emailAdress, String password) {
+    public ReaderDto(Long readerId, String readerName, String phoneNumber, String emailAddress, String password) {
         this.readerId = readerId;
         this.readerName = readerName;
         this.phoneNumber = phoneNumber;
-        this.emailAdress = emailAdress;
+        this.emailAddress = emailAddress;
         this.password = password;
     }
 
-    public ReaderDto(String readerName, String phoneNumber, String emailAdress, String password) {
+    public ReaderDto(String readerName, String phoneNumber, String emailAddress, String password) {
         this.readerName = readerName;
         this.phoneNumber = phoneNumber;
-        this.emailAdress = emailAdress;
+        this.emailAddress = emailAddress;
         this.password = password;
     }
 
-    public ReaderDto(String emailAdress, String password) {
-        this.emailAdress = emailAdress;
+    public ReaderDto(String emailAddress, String password) {
+        this.emailAddress = emailAddress;
         this.password = password;
     }
 
@@ -96,12 +106,12 @@ public class ReaderDto {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getEmailAdress() {
-        return emailAdress;
+    public String getemailAddress() {
+        return emailAddress;
     }
 
-    public void setEmailAdress(String emailAdress) {
-        this.emailAdress = emailAdress;
+    public void setemailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 
     public boolean isStatus() {

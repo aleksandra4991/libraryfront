@@ -70,7 +70,7 @@ public class EditYourData extends VerticalLayout {
             ReaderDto readerDto = libraryBackendClient.getReaderByUid(readerId);
             name.setValue(readerDto.getReaderName());
             phoneNumber.setValue(readerDto.getPhoneNumber());
-            emailAddress.setValue(readerDto.getEmailAdress());
+            emailAddress.setValue(readerDto.getemailAddress());
             password.setValue(readerDto.getPassword());
         }
     }
