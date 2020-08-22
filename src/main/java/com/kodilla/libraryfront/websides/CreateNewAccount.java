@@ -25,10 +25,13 @@ public class CreateNewAccount extends VerticalLayout {
     private Button createNewAccount;
     private Button goBackToLogIn;
 
+    private Label registrationLabel = new Label ("Rejestracja przebiegła pomyślnie,zaloguj się na swoje konto");
+
     private Label registrationIncorrectLabel = new Label("Podany email lub hasło są nieprawidłowe." +
             " Spróbuj ponownie.");
 
     private Dialog registrationIncorrectDialog = new Dialog();
+    private Dialog registrationDialog = new Dialog();
 
     private String uuid;
 
@@ -64,14 +67,13 @@ public class CreateNewAccount extends VerticalLayout {
         password.setValueChangeMode(ValueChangeMode.EAGER);
 
         registrationIncorrectDialog.add(registrationIncorrectLabel);
+        registrationDialog.add(registrationLabel);
 
         createNewAccount.addClickListener(e->{
             createNewReaderAccount();
+            registrationDialog.open();
             try{
-                uuid = createNewReaderAccount().getUid();
-                String location = "" + uuid;
-                createNewAccount.getUI().ifPresent((ui ->
-                        ui.navigate(location)));
+                createNewAccount.getUI().get().navigate(LogIn.class);
 
             } catch (Exception n) {
                 registrationIncorrectDialog.open();
