@@ -153,10 +153,10 @@ public class LibraryBackendClient {
         return restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint()+"/reservation/"+reservationId,ReservationDto.class);
     }
 
-    public Boolean login(String email,String password){
+    public Boolean login(String emailAddress,String password){
 
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("email",email);
+        httpHeaders.set("emailAddress",emailAddress);
         httpHeaders.set("password",password);
         HttpEntity<String> entity = new HttpEntity<String>("parameters",httpHeaders);
 
@@ -166,10 +166,10 @@ public class LibraryBackendClient {
         return respEntity.getBody();
     }
 
-    public ReaderDto getReaderByLoginData(String email,String password){
+    public ReaderDto getReaderByLoginData(String emailAddress,String password){
 
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("email", email);
+        httpHeaders.set("emailAddress", emailAddress);
         httpHeaders.set("password", password);
         HttpEntity<String> entity = new HttpEntity<String>("parameters", httpHeaders);
 

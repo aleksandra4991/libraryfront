@@ -38,14 +38,13 @@ public class LogIn extends VerticalLayout {
         layoutOfLogInPage.setAlignItems(Alignment.CENTER);
 
         logIn.addClickListener(event -> {
-            logged = libraryBackendClient.login(email.getValue(),password.getValue());
-            if(logged){
-                String location = "" + libraryBackendClient.getReaderByLoginData(email.getValue(), password.getValue());
-                logIn.getUI().ifPresent(ui ->
-                        ui.navigate(location));
-            } else {
-                loginIncorrectDialog.open();
-            }
+            //logged = libraryBackendClient.login(email.getValue(),password.getValue());
+            //if(logged){
+                libraryBackendClient.getReaderByLoginData(email.getValue(), password.getValue());
+                logIn.getUI().get().navigate(ReaderAccount.class);
+            //} else {
+              //  loginIncorrectDialog.open();
+            //}
 
         });
 
