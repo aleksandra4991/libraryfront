@@ -1,3 +1,5 @@
+Projekt w trakcie rozwoju.
+
 Uruchomienie front-end'u:
 
 1. Repozytorium front-end'owe: https://github.com/aleksandra4991/libraryfrontend
