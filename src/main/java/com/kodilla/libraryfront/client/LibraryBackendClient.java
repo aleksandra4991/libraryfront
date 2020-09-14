@@ -156,6 +156,7 @@ public class LibraryBackendClient {
     public Boolean login(String emailAddress,String password){
 
         HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         httpHeaders.set("emailAddress",emailAddress);
         httpHeaders.set("password",password);
         HttpEntity<String> entity = new HttpEntity<String>("parameters",httpHeaders);
@@ -169,6 +170,7 @@ public class LibraryBackendClient {
     public ReaderDto getReaderByLoginData(String emailAddress,String password){
 
         HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         httpHeaders.set("emailAddress", emailAddress);
         httpHeaders.set("password", password);
         HttpEntity<String> entity = new HttpEntity<String>("parameters", httpHeaders);
