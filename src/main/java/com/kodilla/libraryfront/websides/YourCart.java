@@ -1,7 +1,7 @@
 package com.kodilla.libraryfront.websides;
 
 import com.kodilla.libraryfront.client.LibraryBackendClient;
-import com.kodilla.libraryfront.dto.BookDto;
+import com.kodilla.libraryfront.dto.VolumeDto;
 import com.kodilla.libraryfront.dto.CartBookAdderDto;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
@@ -20,8 +20,8 @@ public class YourCart extends VerticalLayout {
     private VerticalLayout layoutOfCart = new VerticalLayout();
     private HorizontalLayout panelButtons = new HorizontalLayout();
 
-    private List<BookDto> booksInCart;
-    private Grid<BookDto> booksInYourCart;
+    private List<VolumeDto> booksInCart;
+    private Grid<VolumeDto> booksInYourCart;
     private Button bookPutInCartChecker;
     private Button bookDeleterFromACart;
     private Button reservationMaker;
@@ -33,13 +33,11 @@ public class YourCart extends VerticalLayout {
         this.libraryBackendClient = libraryBackendClient;
 
         booksInCart = new ArrayList<>();
-        booksInYourCart = new Grid<>(BookDto.class);
+        booksInYourCart = new Grid<>(VolumeDto.class);
         booksInYourCart.setItems(booksInCart);
-        booksInYourCart.addColumn(BookDto::getTitle).setHeader("Title");
-        booksInYourCart.addColumn(BookDto::getAuthor).setHeader("Author");
-        booksInYourCart.addColumn(BookDto::getYear).setHeader("Year");
-        booksInYourCart.addColumn(BookDto::getSignature).setHeader("Signature");
-        booksInYourCart.addColumn(BookDto::getGenreId).setHeader("GenreId");
+        booksInYourCart.addColumn(VolumeDto::getTitle).setHeader("Title");
+        booksInYourCart.addColumn(VolumeDto::getAuthors).setHeader("Author");
+        booksInYourCart.addColumn(VolumeDto::getGenreId).setHeader("GenreId");
 
         bookPutInCartChecker = new Button("Put in a Cart");
         bookDeleterFromACart = new Button("Delete From a Cart");
@@ -66,13 +64,13 @@ public class YourCart extends VerticalLayout {
 
     public void deleteBookFromACart(){
         CartBookAdderDto cartBookAdderDto = libraryBackendClient.getCartById(idOfCart);
-        BookDto bookDto = libraryBackendClient.getSpecifiedBook(bookId);
-        libraryBackendClient.deleteBookFromACart(bookDto,cartBookAdderDto.getCartId());
+        VolumeDto VolumeDto = libraryBackendClient.getSpecifiedBook(bookId);
+        libraryBackendClient.deleteBookFromACart(VolumeDto,cartBookAdderDto.getCartId());
     }
 
     public void makeAReservation(){
         CartBookAdderDto cartBookAdderDto = libraryBackendClient.getCartById(idOfCart);
-        libraryBackendClient.createReservationOnCartBasis(cartBookAdderDto.getBookDtoList(),idOfCart);
+        libraryBackendClient.createReservationOnCartBasis(cartBookAdderDto.getVolumeDtoList(),idOfCart);
     }
 
 }

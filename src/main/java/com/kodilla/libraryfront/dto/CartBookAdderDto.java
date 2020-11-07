@@ -11,14 +11,14 @@ public class CartBookAdderDto {
 
     private Long cartId;
 
-    private List<BookDto> bookDtoList;
+    private List<VolumeDto> VolumeDtoList;
 
     public Long getCartId() {
         return cartId;
     }
 
-    public List<BookDto> getBookDtoList() {
-        return bookDtoList;
+    public List<VolumeDto> getVolumeDtoList() {
+        return VolumeDtoList;
     }
 }
 
