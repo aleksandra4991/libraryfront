@@ -15,10 +15,10 @@ public class ReservationDto {
     private AtomicBoolean active;
     private Long reservationId;
     private ReaderDto reader;
-    private List<BookDto> reservedBooks;
+    private List<VolumeDto> reservedBooks;
     private Long cartId;
 
-    public ReservationDto(AtomicBoolean active, List<BookDto> reservedBooks) {
+    public ReservationDto(AtomicBoolean active, List<VolumeDto> reservedBooks) {
         this.active = active;
         this.reservedBooks = reservedBooks;
     }
@@ -43,11 +43,11 @@ public class ReservationDto {
         return reader;
     }
 
-    public List<BookDto> getReservedBooks() {
+    public List<VolumeDto> getReservedBooks() {
         return reservedBooks;
     }
 
-    public void setReservedBooks(List<BookDto> reservedBooks) {
+    public void setReservedBooks(List<VolumeDto> reservedBooks) {
         this.reservedBooks = reservedBooks;
     }
 

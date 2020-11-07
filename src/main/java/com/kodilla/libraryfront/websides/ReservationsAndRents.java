@@ -1,7 +1,7 @@
 package com.kodilla.libraryfront.websides;
 
 import com.kodilla.libraryfront.client.LibraryBackendClient;
-import com.kodilla.libraryfront.dto.BookDto;
+import com.kodilla.libraryfront.dto.VolumeDto;
 import com.kodilla.libraryfront.dto.ReaderDto;
 import com.kodilla.libraryfront.dto.ReservationDto;
 import com.vaadin.flow.component.button.Button;
@@ -19,9 +19,9 @@ public class ReservationsAndRents extends VerticalLayout {
 
     private final LibraryBackendClient libraryBackendClient;
 
-    private List<BookDto> rentedBooks;
+    private List<VolumeDto> rentedBooks;
     private List<ReservationDto> doneReservations;
-    private Grid<BookDto> gridBooks;
+    private Grid<VolumeDto> gridBooks;
     private Grid<ReservationDto> gridReservations;
     private Button books;
     private Button reservations;
@@ -62,10 +62,8 @@ public class ReservationsAndRents extends VerticalLayout {
         reservationsLayOut.addComponentAtIndex(2,deleteReservation);
 
         gridBooks.setItems(rentedBooks);
-        gridBooks.addColumn(BookDto::getTitle).setHeader("Title");
-        gridBooks.addColumn(BookDto::getAuthor).setHeader("Author");
-        gridBooks.addColumn(BookDto::getYear).setHeader("Year");
-        gridBooks.addColumn(BookDto::getSignature).setHeader("Signature");
+        gridBooks.addColumn(VolumeDto::getTitle).setHeader("Title");
+        gridBooks.addColumn(VolumeDto::getAuthors).setHeader("Author");
         gridBooks.addThemeVariants(GridVariant.LUMO_ROW_STRIPES);
         gridReservations.setItems(doneReservations);
         gridReservations.addColumn(ReservationDto::getActive).setHeader("Active");

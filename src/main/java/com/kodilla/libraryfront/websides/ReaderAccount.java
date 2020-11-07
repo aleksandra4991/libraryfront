@@ -1,17 +1,19 @@
 package com.kodilla.libraryfront.websides;
 
 import com.kodilla.libraryfront.client.LibraryBackendClient;
-import com.kodilla.libraryfront.dto.BookDto;
 import com.kodilla.libraryfront.dto.CartBookAdderDto;
+import com.kodilla.libraryfront.dto.VolumeDto;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.details.Details;
+import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.Autocomplete;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
-
 
 @Route
 public class ReaderAccount extends VerticalLayout {
@@ -36,8 +38,12 @@ public class ReaderAccount extends VerticalLayout {
     private Button logOut;
 
     //lookingForABook(left)manu
-    private TextField titleSelect;
-    private TextField authorSelect;
+    private Grid<VolumeDto> googleVolumeList;
+    private TextField book;
+    private Dialog lookingForABookDialog;
+    private Dialog incorrectLookingForABookDialog;
+    private Label lookingForABookLabel;
+    private Label incorrectLookingForABookLabel;
     private Button findABook;
     private Button addBookToCart;
 
@@ -55,10 +61,17 @@ public class ReaderAccount extends VerticalLayout {
         editingData = new Button("Edit your profile");
         logOut = new Button("Log out");
 
-        titleSelect = new TextField();
-        authorSelect = new TextField();
+        googleVolumeList = new Grid<>();
+        book = new TextField();
         findABook = new Button("Find Book");
+        lookingForABookDialog = new Dialog();
+        incorrectLookingForABookDialog = new Dialog();
+        lookingForABookLabel = new Label();
+        incorrectLookingForABookLabel = new Label();
         addBookToCart = new Button("Add to cart");
+
+        lookingForABookDialog.add(lookingForABookLabel);
+        incorrectLookingForABookDialog.add(incorrectLookingForABookLabel);
 
         cartDetails = new Details();
         goToCart = new Button("Cart");
@@ -74,8 +87,7 @@ public class ReaderAccount extends VerticalLayout {
         detailsMenu.addComponentAtIndex(1,cartRightBottomMenu);
         lookForAndChooseLeftMenu.addComponentAtIndex(0,selection);
         lookForAndChooseLeftMenu.addComponentAtIndex(1,choosingABook);
-        selection.addComponentAtIndex(0,titleSelect);
-        selection.addComponentAtIndex(1,authorSelect);
+        selection.addComponentAsFirst(book);
         choosingABook.addComponentAtIndex(0,findABook);
         choosingABook.addComponentAtIndex(1,addBookToCart);
         cartRightBottomMenu.addComponentAtIndex(0,cartDetails);
@@ -98,55 +110,48 @@ public class ReaderAccount extends VerticalLayout {
             getUI().get().navigate(MainPage.class);
         });
 
-        titleSelect.setValueChangeMode(ValueChangeMode.EAGER);
-        titleSelect.setAutocomplete(Autocomplete.ON);
-        titleSelect.setRequiredIndicatorVisible(true);
-        titleSelect.setLabel("Title");
-        titleSelect.setPlaceholder("Select The Title");
 
-        authorSelect.setValueChangeMode(ValueChangeMode.EAGER);
-        authorSelect.setAutocomplete(Autocomplete.ON);
-        authorSelect.setAutoselect(true);
-        authorSelect.setRequiredIndicatorVisible(true);
-        authorSelect.setLabel("Author");
-        authorSelect.setPlaceholder("Select the Author");
+      book.setValueChangeMode(ValueChangeMode.EAGER);
+      book.setAutocomplete(Autocomplete.ON);
+      book.setAutoselect(true);
+      book.setRequiredIndicatorVisible(true);
+      book.setLabel("Book");
 
-        findABook.addClickListener(e -> {
-            String location;
-            String selectedTitle = titleSelect.getValue();
-            String selectedAuthor = authorSelect.getValue();
-            if (selectedTitle != null && selectedAuthor != null) {
-                location = "list/" + selectedTitle + "&" + selectedAuthor + "&" + libraryBackendClient.getReaderByUid(uuid);
-                findABook.getUI().ifPresent(ui ->
-                        ui.navigate(location));
-            } else if (selectedTitle == null && selectedAuthor != null) {
-                location = "list/" + "null&" + selectedAuthor + "&" + libraryBackendClient.getReaderByUid(uuid);
-                findABook.getUI().ifPresent(ui ->
-                        ui.navigate(location));
-            } else if (selectedTitle != null && selectedAuthor == null) {
-                location = "list/" + selectedTitle + "&null&" + libraryBackendClient.getReaderByUid(uuid);
-                findABook.getUI().ifPresent(ui ->
-                        ui.navigate(location));
-            }
-        });
 
-        addBookToCart.addClickListener(e->putABookInACart());
 
-        cartDetails.addContent();
 
-        goToCart.addClickListener(e-> viewYourCart());
+
+      findABook.addClickListener(e -> {
+                    String selectedBook = book.getValue();
+                    if (selectedBook != null) {
+                        libraryBackendClient.getVolumeByTitleAndAuthor(selectedBook);
+                        lookingForABookLabel.setText("Volume: " + "\"" + selectedBook + "\"" + " have found");
+                        lookingForABookDialog.open();
+                    }
+                    else{
+                        incorrectLookingForABookLabel.setText("Unfortunately volume: " + "\"" + selectedBook + "\"" + " have not found");
+                        incorrectLookingForABookDialog.open();
+                    }
+                });
+
+      addBookToCart.addClickListener(e->putABookInACart());
+
+      cartDetails.addContent();
+
+      goToCart.addClickListener(e-> viewYourCart());
 
     }
 
     public void putABookInACart(){
         CartBookAdderDto cartBookAdderDto = libraryBackendClient.getCartById(idOfCart);
-        BookDto bookDto = libraryBackendClient.getSpecifiedBook(bookId);
-        libraryBackendClient.putBookInACart(bookDto,cartBookAdderDto.getCartId());
+        VolumeDto volumeDto = libraryBackendClient.getSpecifiedBook(bookId);
+        libraryBackendClient.putBookInACart(volumeDto,cartBookAdderDto.getCartId());
     }
 
     public void viewYourCart(){
         CartBookAdderDto cartBookAdderDto = libraryBackendClient.getCartById(idOfCart);
         libraryBackendClient.getBooksAlreadyPutInCart(cartBookAdderDto);
     }
+
 }
 

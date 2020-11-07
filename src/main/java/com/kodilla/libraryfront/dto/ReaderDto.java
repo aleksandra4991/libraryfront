@@ -21,7 +21,7 @@ public class ReaderDto {
     private List<ReservationDto> reservationDtoList = new ArrayList<>();
 
     @JsonIgnore
-    private List<BookDto> bookDtoList = new ArrayList<>();
+    private List<VolumeDto> VolumeDtoList = new ArrayList<>();
 
     public ReaderDto() {
     }
@@ -36,7 +36,7 @@ public class ReaderDto {
         this.password = password;
     }
 
-    public ReaderDto(Long readerId, String uid, String readerName, String phoneNumber, String emailAddress, boolean status, String password, List<ReservationDto> reservationDtoList, List<BookDto> bookDtoList) {
+    public ReaderDto(Long readerId, String uid, String readerName, String phoneNumber, String emailAddress, boolean status, String password, List<ReservationDto> reservationDtoList, List<VolumeDto> VolumeDtoList) {
         this.readerId = readerId;
         this.uid = uid;
         this.readerName = readerName;
@@ -45,7 +45,7 @@ public class ReaderDto {
         this.status = status;
         this.password = password;
         this.reservationDtoList = reservationDtoList;
-        this.bookDtoList = bookDtoList;
+        this.VolumeDtoList = VolumeDtoList;
     }
 
     public ReaderDto(Long readerId, String readerName, String phoneNumber, String emailAddress, String password) {
@@ -68,10 +68,10 @@ public class ReaderDto {
         this.password = password;
     }
 
-    public ReaderDto(Long readerId, List<ReservationDto> reservationDtoList, List<BookDto> bookDtoList) {
+    public ReaderDto(Long readerId, List<ReservationDto> reservationDtoList, List<VolumeDto> VolumeDtoList) {
         this.readerId = readerId;
         this.reservationDtoList = reservationDtoList;
-        this.bookDtoList = bookDtoList;
+        this.VolumeDtoList = VolumeDtoList;
     }
 
     public void blockUser(){
@@ -134,11 +134,11 @@ public class ReaderDto {
         this.reservationDtoList = reservationDtoList;
     }
 
-    public List<BookDto> getBookDtoList() {
-        return bookDtoList;
+    public List<VolumeDto> getVolumeDtoList() {
+        return VolumeDtoList;
     }
 
-    public void setBookDtoList(List<BookDto> bookDtoList) {
-        this.bookDtoList = bookDtoList;
+    public void setVolumeDtoList(List<VolumeDto> VolumeDtoList) {
+        this.VolumeDtoList = VolumeDtoList;
     }
 }
