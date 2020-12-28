@@ -47,7 +47,8 @@ public class LogIn extends VerticalLayout {
         logIn.addClickListener(event -> {
             logged = libraryBackendClient.login(email.getValue(),password.getValue());
             if(logged){
-                ReaderDto willBeLoggedReader = libraryBackendClient.getReaderByLoginData(email.getValue(), password.getValue());
+                ReaderDto willBeLoggedReader = new ReaderDto();
+                willBeLoggedReader = libraryBackendClient.getReaderByLoginData(email.getValue(),password.getValue());
                 loginDialog.open();
                 logIn.getUI().get().navigate(ReaderAccount.class);
             } else {

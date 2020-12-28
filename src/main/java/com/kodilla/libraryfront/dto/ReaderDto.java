@@ -16,6 +16,7 @@ public class ReaderDto {
     private String emailAddress;
     private boolean status;
     private String password;
+    private CartBookAdderDto cartBookAdderDto;
 
     @JsonIgnore
     private List<ReservationDto> reservationDtoList = new ArrayList<>();
@@ -124,6 +125,14 @@ public class ReaderDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public CartBookAdderDto getCartBookAdderDto() {
+        return cartBookAdderDto;
+    }
+
+    public void setCartBookAdderDto(CartBookAdderDto cartBookAdderDto) {
+        this.cartBookAdderDto = cartBookAdderDto;
     }
 
     public List<ReservationDto> getReservationDtoList() {

@@ -21,6 +21,7 @@ ext {
 }
 
 dependencies {
+    compile group: 'org.springframework', name: 'spring-webflux', version: '5.2.7.RELEASE'
     compile "org.projectlombok:lombok:0.10.8"
     compile 'com.google.code.gson:gson:2.8.6'
     implementation 'com.vaadin:vaadin-spring-boot-starter'
