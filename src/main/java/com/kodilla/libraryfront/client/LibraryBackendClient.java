@@ -10,10 +10,14 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toCollection;
 
 @Component
 public class LibraryBackendClient {
@@ -31,30 +35,43 @@ public class LibraryBackendClient {
         return Stream.of(boardsResponse).collect(Collectors.toList());
     }
 
-    public List<VolumeDto> getBooksPutinCart(CartBookAdderDto cartBookAdderDto){
-        CartBookAdderDto boardResponse = restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint()+"/books/cart"+cartBookAdderDto,CartBookAdderDto.class);
-        return boardResponse.getVolumeDtoList();
+    public CartBookAdderDto putBookInCart (Long cartId, VolumeDto volumeDto) {
+        Gson gson = new Gson();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        String contentInJson = gson.toJson(volumeDto);
+        return restTemplate.postForObject(libraryBackendConfigration.getLibrarybackendEndpoint() + "/book/putInCart/" + cartId, contentInJson , CartBookAdderDto.class);
+    }
+
+    public VolumeDto getBooksPutInCart(CartBookAdderDto cartBookAdderDto){
+        CartBookAdderDto boardResponse = restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint()+"/books/alreadyInCart" + cartBookAdderDto,CartBookAdderDto.class);
+        return boardResponse.getVolumeDto();
     }
 
     public CartBookAdderDto getCartById(Long cartId){
-        return restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint() + "/cart/" + cartId, CartBookAdderDto.class);
+        Gson gson = new Gson();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        String contentInJson = gson.toJson(cartId);
+        HttpEntity<String> httpRequest = new HttpEntity<String>(contentInJson,httpHeaders);
+        return restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint() + "/cart/" + contentInJson, CartBookAdderDto.class);
     }
+
 
     public VolumeDto getSpecifiedBook(Long bookId){
         return restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint() + "/book/" + bookId, VolumeDto.class);
     }
 
-    public VolumeDto getVolumeByTitleAndAuthor(String book){
+    public List <VolumeDto> getVolumeByTitle(String title){
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-        httpHeaders.set("book", book);
-        HttpEntity<String> entity = new HttpEntity<String>("parameters", httpHeaders);
+        httpHeaders.set("title",title);
+        HttpEntity entity = new HttpEntity(httpHeaders);
 
-        URI url = UriComponentsBuilder.fromHttpUrl(libraryBackendConfigration.getLibrarybackendEndpoint() + "/books/title/author").build().encode().toUri();
+        URI url = UriComponentsBuilder.fromHttpUrl(libraryBackendConfigration.getLibrarybackendEndpoint() + "/books/title").build().encode().toUri();
 
-        ResponseEntity<VolumeDto> respEntity = restTemplate.exchange(url, HttpMethod.GET, entity,  VolumeDto.class);
-        return Optional.ofNullable(respEntity.getBody()).orElse(new VolumeDto());
+        ResponseEntity <VolumeDto[]> respEntity = restTemplate.exchange(url,HttpMethod.GET,entity,VolumeDto[].class);
+        return Arrays.stream(respEntity.getBody()).collect(toCollection(ArrayList::new));
+
     }
 
 
@@ -102,14 +119,6 @@ public class LibraryBackendClient {
         return boardResponse.getReservationDtoList();
     }
 
-    public void putBookInACart(VolumeDto VolumeDto,Long cartId){
-        Gson gson = new Gson();
-        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-        String contentInJson = gson.toJson(VolumeDto);
-        HttpEntity<String> httpRequest = new HttpEntity<String>(contentInJson,httpHeaders);
-        restTemplate.put(libraryBackendConfigration.getLibrarybackendEndpoint()+"/book/placed/"+cartId,httpRequest);
-    }
-
     public void deleteBookFromACart(VolumeDto VolumeDto,Long cartId){
         Gson gson = new Gson();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -119,17 +128,12 @@ public class LibraryBackendClient {
     }
 
 
-    public ReservationDto createReservationOnCartBasis(List<VolumeDto> VolumeDtoList,Long cartId){
+    public ReservationDto createReservationOnCartBasis(VolumeDto VolumeDto,Long cartId){
         Gson gson = new Gson();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-        String contentInJson = gson.toJson(VolumeDtoList);
+        String contentInJson = gson.toJson(VolumeDto);
         HttpEntity<String> httpRequest = new HttpEntity<String>(contentInJson,httpHeaders);
         return restTemplate.postForObject(libraryBackendConfigration.getLibrarybackendEndpoint()+"/reservation/create/cart/"+cartId,httpRequest,ReservationDto.class);
-    }
-
-    public List<VolumeDto> getBooksAlreadyPutInCart(CartBookAdderDto cartBookAdderDto){
-        CartBookAdderDto boardResponse = restTemplate.getForObject(libraryBackendConfigration.getLibrarybackendEndpoint()+"/books/AlreadyInCart"+cartBookAdderDto,CartBookAdderDto.class);
-        return boardResponse.getVolumeDtoList();
     }
 
     /*public VolumeDto createBook(VolumeDto VolumeDto){

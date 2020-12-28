@@ -37,7 +37,8 @@ public class YourCart extends VerticalLayout {
         booksInYourCart.setItems(booksInCart);
         booksInYourCart.addColumn(VolumeDto::getTitle).setHeader("Title");
         booksInYourCart.addColumn(VolumeDto::getAuthors).setHeader("Author");
-        booksInYourCart.addColumn(VolumeDto::getGenreId).setHeader("GenreId");
+        booksInYourCart.addColumn(VolumeDto::getPublishedDate).setHeader("Published Date");
+        booksInYourCart.addColumn(VolumeDto::getDescription).setHeader("Description");
 
         bookPutInCartChecker = new Button("Put in a Cart");
         bookDeleterFromACart = new Button("Delete From a Cart");
@@ -59,7 +60,7 @@ public class YourCart extends VerticalLayout {
 
     public void showBooksPutInReaderCart(){
         CartBookAdderDto cartBookAdderDto = libraryBackendClient.getCartById(idOfCart);
-        booksInYourCart.setItems(libraryBackendClient.getBooksPutinCart(cartBookAdderDto));
+        booksInYourCart.setItems(libraryBackendClient.getBooksPutInCart(cartBookAdderDto));
     }
 
     public void deleteBookFromACart(){
@@ -70,7 +71,7 @@ public class YourCart extends VerticalLayout {
 
     public void makeAReservation(){
         CartBookAdderDto cartBookAdderDto = libraryBackendClient.getCartById(idOfCart);
-        libraryBackendClient.createReservationOnCartBasis(cartBookAdderDto.getVolumeDtoList(),idOfCart);
+        libraryBackendClient.createReservationOnCartBasis(cartBookAdderDto.getVolumeDto(),idOfCart);
     }
 
 }
