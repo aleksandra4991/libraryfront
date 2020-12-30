@@ -79,6 +79,7 @@ public class ReaderAccount extends VerticalLayout {
 
         googleBooks = new Grid<>(VolumeDto.class);
         googleBooks.setColumns("title","authors","publishedDate","description");
+        googleBooks.setSelectionMode(Grid.SelectionMode.MULTI);
 
         add(pageLayout);
         pageLayout.addComponentAtIndex(0,mainUpMenu);
@@ -149,6 +150,8 @@ public class ReaderAccount extends VerticalLayout {
 
     public void getFoundBooks(){
         googleBooks.setItems(libraryBackendClient.getVolumeByTitle(title.getValue()));
+        googleBooks.asMultiSelect();
+
     }
     /*public void putAtitleInACart(){
         CarttitleAdderDto carttitleAdderDto = libraryBackendClient.getCartById(idOfCart);
